@@ -1,3 +1,3 @@
-module.exorts = {
-    
+module.exports = {
+    AirplaneRepository : require('./Airplane-repository'),
 }
