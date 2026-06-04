@@ -4,12 +4,12 @@ const router = express.Router();
 const { Airplanecontroller } = require('../../controllers');
 const { AirplaneMiddleware } = require('../../middlewares');
 // console.log("inside airplane route");
-console.log("inside airplane route");
-console.log("AirplaneMiddleware.validateAirplane type:", typeof AirplaneMiddleware.validateAirplane);
-console.log("Airplanecontroller.createAirplane type:", typeof Airplanecontroller.createAirplane);
 
 router.post('/' ,AirplaneMiddleware.validateAirplane,
      Airplanecontroller.createAirplane);
 
+router.get('/' ,Airplanecontroller.getAirplane);
+router.get('/:id' ,Airplanecontroller.getAirplanes);
+router.patch('/:id' ,Airplanecontroller.updateAirplane);
 
 module.exports = router;

@@ -16,11 +16,65 @@ async function createAirplane(req,res){
     }catch(error){
         AppErrors.error = error;
        return res
-       .status(StatusCodes.INTERNAL_SERVER_ERROR)
-       .json(AppErrors);
+        .status(error.statusCode)
+        .json(AppErrors);
     }
 }
 
+async function getAirplane(req,res){
+    try{
+    const airplanes = await AirplaneService.getAirplane();
+    AppSuccess.success = airplanes;
+    return res
+    .status(StatusCodes.OK)
+    .json(AppSuccess);
+    }
+    catch(error){
+    AppErrors.error = error;
+    return res
+    .status(error.statusCode)
+        .json(AppErrors);
+    }
+}
+
+async function getAirplanes(req,res){
+    try{
+    const airplanes = await AirplaneService.getAirplanes(req.params.id);
+    AppSuccess.success = airplanes;
+    return res
+    .status(StatusCodes.OK)
+    .json(AppSuccess);
+    }
+    catch(error){
+    AppErrors.error = error;
+    return res
+    .status(error.statusCode)
+        .json(AppErrors);
+    }
+}
+
+async function updateAirplane(req,res){
+    try{
+     const airplanes = await AirplaneService.updateAirplane(req.params.id, req.body);
+    AppSuccess.success = airplanes;
+    AppSuccess.message = 'Airplane updated successfully';
+    return res
+    .status(StatusCodes.OK)
+    .json(AppSuccess);
+    }
+    catch(error){
+     AppErrors.error = error;
+    return res
+    .status(error.statusCode)
+        .json(AppErrors);
+    }
+}
+
+
+
 module.exports = {
-    createAirplane
+    createAirplane,
+    getAirplane,
+    getAirplanes, 
+    updateAirplane,
 }
