@@ -11,18 +11,23 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.City ,{
+        foreignKey : 'cityId',
+        onDelete : 'CASCADE',
+        onUpdate : 'CASCADE'
+      })
     }
   }
   Airports.init({
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: { unique: true }
+       unique: true 
     },
       code: { 
         type: DataTypes.STRING,
         allowNull: false,
-        validate: { unique: true }
+         unique: true 
       },
       address:{ 
         type: DataTypes.STRING,
