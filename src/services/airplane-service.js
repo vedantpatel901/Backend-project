@@ -47,7 +47,8 @@ async function updateAirplane(id, data){
             throw new AppError('airplane not found', StatusCodes.NOT_FOUND);
         }
         const updatedAirplane = await airplane.update({
-            capacity: data.capacity
+            capacity: data.capacity,
+            modelNumber: data.modelNumber
         });
         return updatedAirplane;
     }
