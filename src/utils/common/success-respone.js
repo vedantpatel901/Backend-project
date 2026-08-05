@@ -1,8 +1,8 @@
-const success = {
+const createSuccessResponse = (message = "Request completed successfully", data = {}) => ({
     success: true,
-    message: "Airplane created successfully",
-    data: {},
+    message,
+    data,
     error: {},
-}
+});
 
-module.exports = success;
+module.exports = createSuccessResponse;

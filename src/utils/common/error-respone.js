@@ -1,8 +1,8 @@
-const error = {
+const createErrorResponse = (message = "Request failed", error = {}) => ({
     success: false,
-    message: "failed to create airplane",
+    message,
     data: {},
-    error: {},
-}
+    error,
+});
 
-module.exports = error;
+module.exports = createErrorResponse;

@@ -8,15 +8,18 @@ async function createCity(req,res){
         const city = await CityService.createCity({
             name: req.body.name,
         });
-        AppSuccess.success = city    ; // this is use because we want to send the created city in the response and if don't do this then the data will be empty in the response.
+        const response = AppSuccess('City created successfully', city);
         return res
         .status(StatusCodes.CREATED)
-        .json(AppSuccess);   
+        .json(response);   
     }catch(error){
-        AppErrors.error = error;
+        const response = AppErrors(error.message, {
+            explanation: error.explanation,
+            statusCode: error.statusCode,
+        });
        return res
         .status(error.statusCode)
-        .json(AppErrors);
+        .json(response);
     }
 }
 

@@ -1,4 +1,4 @@
-const { AirplaneRepository } = require('../respositories')
+const { AirplaneRepository } = require('../repositories')
 const  AppError  = require('../utils/errors/app-error');
 const { StatusCodes } = require('http-status-codes');
 
@@ -9,7 +9,7 @@ async function createAirplane(data) {
         const airplane = await airplaneRepository.create(data);
         return airplane;
     } catch(error) {
-            if(error.name == 'SequelizeVaidationError') {
+            if(error.name == 'SequelizeValidationError') {
                 let explanation = [];
                 error.errors.forEach((err) => {
                     explanation.push(err.message);
@@ -33,9 +33,15 @@ async function getAirplane(){
 async function getAirplanes(id){
     try{
       const airplanes = await airplaneRepository.getdatabypk(id);
+            if (!airplanes) {
+                throw new AppError('airplane not found', StatusCodes.NOT_FOUND);
+            }
       return airplanes;
     }
     catch(error){
+                if (error instanceof AppError) {
+                        throw error;
+                }
         throw new AppError('cannot fetch airplanes', StatusCodes.INTERNAL_SERVER_ERROR);
     }
 }
@@ -53,6 +59,9 @@ async function updateAirplane(id, data){
         return updatedAirplane;
     }
     catch(error){
+        if (error instanceof AppError) {
+            throw error;
+        }
         throw new AppError('cannot update airplane', StatusCodes.INTERNAL_SERVER_ERROR);
     }
 }

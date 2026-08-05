@@ -22,7 +22,7 @@ module.exports = {
     },
     {
       modelNumber : 'boeing-747',
-      capacity:300,
+      capacity: 180,
       createdAt: new Date(),
       updatedAt: new Date()
     } 
@@ -33,6 +33,8 @@ module.exports = {
   
 
   async down (queryInterface, Sequelize) {
-     
+     await queryInterface.bulkDelete('Airplanes', {
+      modelNumber: ['airbus-320', 'boeing-747']
+     }, {});
   }
 };

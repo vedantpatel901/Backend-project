@@ -9,64 +9,75 @@ async function createAirplane(req,res){
             modelNumber: req.body.modelNumber,
             capacity: req.body.capacity
         });
-        AppSuccess.success = airplane ; // this is use because we want to send the created airplane in the response and if don't do this then the data will be empty in the response.
+        const response = AppSuccess('Airplane created successfully', airplane);
         return res
         .status(StatusCodes.CREATED)
-        .json(AppSuccess);   
+        .json(response);   
     }catch(error){
-        AppErrors.error = error;
+        const response = AppErrors(error.message, {
+            explanation: error.explanation,
+            statusCode: error.statusCode,
+        });
        return res
         .status(error.statusCode)
-        .json(AppErrors);
+        .json(response);
     }
 }
 
 async function getAirplane(req,res){
     try{
     const airplanes = await AirplaneService.getAirplane();
-    AppSuccess.success = airplanes;
+    const response = AppSuccess('Airplanes fetched successfully', airplanes);
     return res
     .status(StatusCodes.OK)
-    .json(AppSuccess);
+    .json(response);
     }
     catch(error){
-    AppErrors.error = error;
+    const response = AppErrors(error.message, {
+        explanation: error.explanation,
+        statusCode: error.statusCode,
+    });
     return res
     .status(error.statusCode)
-        .json(AppErrors);
+        .json(response);
     }
 }
 
 async function getAirplanes(req,res){
     try{
     const airplanes = await AirplaneService.getAirplanes(req.params.id);
-    AppSuccess.success = airplanes;
+    const response = AppSuccess('Airplane fetched successfully', airplanes);
     return res
     .status(StatusCodes.OK)
-    .json(AppSuccess);
+    .json(response);
     }
     catch(error){
-    AppErrors.error = error;
+    const response = AppErrors(error.message, {
+        explanation: error.explanation,
+        statusCode: error.statusCode,
+    });
     return res
     .status(error.statusCode)
-        .json(AppErrors);
+        .json(response);
     }
 }
 
 async function updateAirplane(req,res){
     try{
      const airplanes = await AirplaneService.updateAirplane(req.params.id, req.body);
-    AppSuccess.success = airplanes;
-    AppSuccess.message = 'Airplane updated successfully';
+    const response = AppSuccess('Airplane updated successfully', airplanes);
     return res
     .status(StatusCodes.OK)
-    .json(AppSuccess);
+    .json(response);
     }
     catch(error){
-     AppErrors.error = error;
+     const response = AppErrors(error.message, {
+        explanation: error.explanation,
+        statusCode: error.statusCode,
+     });
     return res
     .status(error.statusCode)
-        .json(AppErrors);
+        .json(response);
     }
 }
 
