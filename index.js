@@ -1,8 +1,13 @@
-const {PORT} = require('./config');
-
+const { PORT } = require('./src/config/server-config');
 const express = require('express');
-const app = express();
+const routes = require('./src/routes');
 
-app.listen(PORT , () =>{
-    console.log(`Server is running on port ${PORT}`)
-})
+const app = express();
+app.use(express.json());
+app.use('/api', routes);
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
+
+module.exports = app;
