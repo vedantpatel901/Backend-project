@@ -17,16 +17,16 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references : {
-          table : 'Airplanes',
-          field : 'id',
+          model : 'Airplanes',
+          key : 'id',
         },
         onDelete : 'CASCADE',
         },
       arrivalAirportId: {
         type: Sequelize.INTEGER,allowNull: false,
         references : {
-          table : 'Airports',
-          field : 'id',
+          model : 'Airports',
+          key : 'id',
         },
         onDelete : 'CASCADE',
         },
@@ -34,8 +34,8 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references : {
-          table : 'Airports',
-          field : 'id',
+          model : 'Airports',
+          key : 'id',
         },
         onDelete : 'CASCADE',
       },
