@@ -25,7 +25,24 @@ async function createFlight(data) {
     }
 }
 
+async function getAllFlights(query){
+   let customFilter = {};
+   if(query.trips){
+    const [departureAirportId, arrivalAirportId] = query.trips.split('-');
+    customFilter.departureAirportId = departureAirportId;
+    customFilter.arrivalAirportId = arrivalAirportId;
+   }
+try {
+    const flights = await flightRepository.getAllFlights(customFilter);
+    return flights;
+}
+ catch (error) {
+    console.log("error in service", error);
+        throw new AppError('cannot fetch flights', StatusCodes.INTERNAL_SERVER_ERROR);
+}
+}
 
 module.exports = {
     createFlight,
+    getAllFlights
 };

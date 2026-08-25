@@ -34,6 +34,28 @@ async function createFlight(req, res) {
     }
 }
 
+async function getAllFlights(req, res) {
+    try{
+        const flights = await FlightService.getAllFlights(req.query);
+        const response = AppSuccess('Flights fetched successfully', flights);
+        return res
+            .status(StatusCodes.OK)
+            .json(response);
+    }
+    catch (error) {
+        console.log("error in controller", error);
+        const statusCode = error?.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;
+        const response = AppErrors(error.message, {
+            explanation: error.explanation,
+            statusCode,
+        });
+        return res
+            .status(statusCode)
+            .json(response);
+}
+}
+
 module.exports = {
     createFlight,
+    getAllFlights
 }
